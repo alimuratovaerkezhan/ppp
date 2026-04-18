@@ -5,6 +5,5 @@ def load_config():
         'host': 'localhost',
         'database': 'phonebook_db',
         'user': 'postgres',
-        'password': 'postgres',  # Используйте ваш пароль
-        'port': 5432
+        'password': 'postgres',  
     }
