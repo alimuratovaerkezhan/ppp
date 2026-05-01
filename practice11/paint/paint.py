@@ -3,14 +3,14 @@ import math
 
 pygame.init()
 
-# -------- SCREEN --------
+#SCREEN 
 WIDTH, HEIGHT = 1000, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Paint with Clear Button")
 
 clock = pygame.time.Clock()
 
-# -------- COLORS --------
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -27,11 +27,10 @@ drawing = False
 start_pos = (0, 0)
 last_pos = (0, 0)
 
-# -------- CANVAS --------
+
 canvas = pygame.Surface((WIDTH, HEIGHT))
 canvas.fill(WHITE)
 
-# -------- UI BUTTONS --------
 colors = [
     (BLACK, pygame.Rect(10, 10, 30, 30)),
     (RED, pygame.Rect(50, 10, 30, 30)),
@@ -51,7 +50,7 @@ tools = [
     ("CLEAR", pygame.Rect(730, 60, 80, 30), "clear"),
 ]
 
-# -------- MAIN LOOP --------
+# MAIN LOOP
 running = True
 while running:
 
@@ -60,35 +59,35 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # -------- MOUSE DOWN --------
+        # MOUSE DOWN
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = event.pos
             drawing = True
             start_pos = pos
             last_pos = pos
 
-            # -------- COLORS --------
+            #  COLORS 
             for col, rect in colors:
                 if rect.collidepoint(pos):
                     color = col
 
-            # -------- TOOLS --------
+            # TOOLS 
             for text, rect, tool in tools:
                 if rect.collidepoint(pos):
 
-                    # 🧽 CLEAR BUTTON
+                    #  CLEAR BUTTON
                     if tool == "clear":
                         canvas.fill(WHITE)
 
                     else:
                         mode = tool
 
-        # -------- MOUSE UP --------
+        # MOUSE UP 
         if event.type == pygame.MOUSEBUTTONUP:
             drawing = False
             end_pos = event.pos
 
-            # -------- DRAW SHAPES ON CANVAS --------
+            #DRAW SHAPES ON CANVAS 
             if mode == "rectangle":
                 pygame.draw.rect(canvas, color,
                                  pygame.Rect(start_pos,
@@ -132,7 +131,7 @@ while running:
                 ]
                 pygame.draw.polygon(canvas, color, points, 2)
 
-        # -------- FREE DRAW / ERASER --------
+        # FREE DRAW / ERASER 
         if event.type == pygame.MOUSEMOTION and drawing:
 
             current = event.pos
@@ -145,7 +144,7 @@ while running:
                 pygame.draw.line(canvas, WHITE, last_pos, current, eraser_size)
                 last_pos = current
 
-    # -------- RENDER --------
+    # RENDER 
     screen.fill(WHITE)
     screen.blit(canvas, (0, 0))
 
@@ -154,7 +153,7 @@ while running:
         pygame.draw.rect(screen, col, rect)
         pygame.draw.rect(screen, BLACK, rect, 1)
 
-    # -------- DRAW TOOLS --------
+    # DRAW TOOLS
     for text, rect, tool in tools:
         pygame.draw.rect(screen, (200, 200, 200), rect)
         pygame.draw.rect(screen, BLACK, rect, 1)

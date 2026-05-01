@@ -4,7 +4,6 @@ import time
 
 pygame.init()
 
-# -------- SETTINGS --------
 WIDTH, HEIGHT = 600, 400
 CELL = 20
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -21,14 +20,12 @@ BLACK = (0, 0, 0)
 font = pygame.font.SysFont("Verdana", 20)
 big_font = pygame.font.SysFont("Verdana", 40)
 
-# -------- GAME STATE --------
 MENU = "menu"
 PLAYING = "playing"
 GAME_OVER = "game_over"
 
 state = MENU
 
-# -------- GAME VARIABLES --------
 def reset_game():
     global snake, direction, food_pos, food_weight
     global food_spawn_time, score, level, speed
@@ -42,7 +39,6 @@ def reset_game():
 
     generate_food()
 
-# -------- FOOD --------
 def generate_food():
     global food_pos, food_weight, food_spawn_time
     
@@ -56,7 +52,6 @@ def generate_food():
     food_weight = random.randint(1, 3)
     food_spawn_time = time.time()
 
-# -------- DRAW --------
 def draw_snake():
     for segment in snake:
         pygame.draw.rect(screen, GREEN, (*segment, CELL, CELL))
@@ -95,7 +90,6 @@ def draw_game_over():
     screen.blit(score_text, (WIDTH//2 - score_text.get_width()//2, 180))
     screen.blit(restart, (WIDTH//2 - restart.get_width()//2, 220))
 
-# -------- LOGIC --------
 def check_collision():
     head_x, head_y = snake[0]
     
@@ -114,10 +108,8 @@ def update_level():
         level = new_level
         speed += 2
 
-# -------- INIT --------
 reset_game()
 
-# -------- MAIN LOOP --------
 running = True
 while running:
     
@@ -148,7 +140,6 @@ while running:
                     reset_game()
                     state = PLAYING
     
-    # -------- GAME RUNNING --------
     if state == PLAYING:
         screen.fill(BLACK)
         
