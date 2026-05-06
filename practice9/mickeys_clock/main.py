@@ -5,12 +5,11 @@ pygame.init()
 screen = pygame.display.set_mode((1000, 1000))
 clock = pygame.time.Clock()
 
-# Загрузка изображений
 minutes = pygame.image.load("images/rightarm.png")
 seconds = pygame.image.load("images/sz.png")
 casy = pygame.image.load("images/clock1.png").convert()
 
-# Масштабирование
+
 scaled_sec = pygame.transform.scale(
     seconds,
     (int(seconds.get_width() * 1.4), int(seconds.get_height() * 1.4))
@@ -21,7 +20,7 @@ scaled_min = pygame.transform.scale(
     (int(minutes.get_width() * 1.4), int(minutes.get_height() * 1.4))
 )
 
-# Центр вращения
+
 pivot = (508, 508)
 
 def rotate_around_pivot(image, angle, pivot):
@@ -36,20 +35,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # текущее время
     now = datetime.datetime.now()
     seconds_now = now.second
     minutes_now = now.minute
 
-    # углы вращения
     angle_sec = seconds_now * 6
-    angle_min = (minutes_now + seconds_now / 60) * 6  # плавная минутная стрелка
+    angle_min = (minutes_now + seconds_now / 60) * 6  
 
-    # вращение
     rotated_sec, rotated_sec_rect = rotate_around_pivot(scaled_sec, angle_sec, pivot)
     rotated_min, rotated_min_rect = rotate_around_pivot(scaled_min, angle_min, pivot)
-
-    # отрисовка
+ 
     screen.fill((255, 255, 255))
     screen.blit(casy, (-200, 0))
     screen.blit(rotated_sec, rotated_sec_rect.topleft)
